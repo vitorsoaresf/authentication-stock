@@ -7,7 +7,7 @@ router
   .post("/usuarios", UsuarioController.cadastrar)
   .get("/usuarios", UsuarioController.buscarUsuarios)
   .get("/usuarios/id/:id", UsuarioController.buscarUsuarioPorId)
-  .put("/usuarios/id/:id")
-  .delete("/usuarios/id/:id");
+  .put("/usuarios/id/:id", UsuarioController.editarUsuario)
+  .delete("/usuarios/id/:id", UsuarioController.deletarUsuario);
 
 module.exports = router;

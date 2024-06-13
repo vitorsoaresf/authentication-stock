@@ -42,7 +42,32 @@ class UsuarioService {
     try {
       return await database.usuarios.findByPk(id);
     } catch (error) {
-      throw new Error("Erro ao buscar os usuários");
+      throw new Error("usuário não encontrado");
+    }
+  }
+
+  async editarUsuario(dto) {
+    const usuario = await this.buscarUsuarioById(dto.id);
+    try {
+      usuario.nome = dto.nome;
+      usuario.email = dto.email;
+      await usuario.save();
+      return usuario;
+    } catch (error) {
+      throw new Error("Erro ao editar usuario!");
+    }
+  }
+
+  async deletarUsuario(id) {
+    await this.buscarUsuarioById(id);
+    try {
+      await database.usuarios.destroy({
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      throw new Error("Erro ao tentar deletar o usuario!");
     }
   }
 }
