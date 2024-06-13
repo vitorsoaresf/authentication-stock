@@ -17,9 +17,20 @@ class UsuarioController {
     }
   }
 
-  static async buscarUsuarios(req, res) {
+  static async buscarUsuarios(_, res) {
     try {
       const usuarios = await usuarioServices.buscarTodosUsuarios();
+      res.status(200).send(JSON.stringify(usuarios));
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  }
+
+  static async buscarUsuarioPorId(req, res) {
+    const { id } = req.params;
+
+    try {
+      const usuarios = await usuarioServices.buscarUsuarioById(id);
       res.status(200).send(JSON.stringify(usuarios));
     } catch (error) {
       res.status(400).send({ message: error.message });

@@ -37,6 +37,14 @@ class UsuarioService {
       throw new Error("Erro ao buscar os usuários");
     }
   }
+
+  async buscarUsuarioById(id) {
+    try {
+      return await database.usuarios.findByPk(id);
+    } catch (error) {
+      throw new Error("Erro ao buscar os usuários");
+    }
+  }
 }
 
 module.exports = UsuarioService;
