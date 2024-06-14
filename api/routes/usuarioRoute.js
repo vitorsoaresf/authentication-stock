@@ -1,8 +1,10 @@
 const { Router } = require("express");
 const UsuarioController = require("../controllers/usuariosController");
+const authenticated = require("../middleware/authenticated");
 
 const router = new Router();
 
+router.use(authenticated);
 router
   .post("/usuarios", UsuarioController.cadastrar)
   .get("/usuarios", UsuarioController.buscarUsuarios)
