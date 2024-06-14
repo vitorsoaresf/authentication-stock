@@ -5,7 +5,7 @@ const jsonSecret = require("../config/jsonSecret");
 
 class AuthService {
   async login(data) {
-    const usuario = database.usuarios.findOne({
+    const usuario = await database.usuarios.findOne({
       attributes: ["id", "email", "senha"],
       where: {
         email: data.email,
@@ -16,7 +16,7 @@ class AuthService {
       throw new Error("Usuário não cadastrado!");
     }
 
-    const senhaIguais = compare(data.senha, usuario.senha);
+    const senhaIguais = await compare(data.senha, usuario.senha);
 
     if (!senhaIguais) {
       throw new Error("Senha ou usuário incorreto");
