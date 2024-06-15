@@ -16,7 +16,6 @@ module.exports = async (req, res, next) => {
     req.usuarioId = id;
     req.usuarioEmail = email;
 
-    console.log(req.usuarioId, req.usuarioEmail);
     return next();
   } catch (err) {
     res.status(401).send({ message: "Usuário não autorizado!" });
