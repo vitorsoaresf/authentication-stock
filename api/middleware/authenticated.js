@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).send({ message: "RUsuário não autorizado!" });
+    return res.status(401).send({ message: "Usuário não autorizado!" });
   }
 
   const [, accessToken] = token.split(" ");

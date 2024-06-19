@@ -32,7 +32,28 @@ class UsuarioService {
 
   async buscarTodosUsuarios() {
     try {
-      return await database.usuarios.findAll();
+      const usuarios = await database.usuarios.findAll({
+        include: [
+          {
+            model: database.roles,
+            as: "usuario_roles",
+            attributes: ["id", "nome", "descricao"],
+            through: {
+              attributes: [],
+            },
+          },
+          {
+            model: database.permissoes,
+            as: "usuario_permissoes",
+            attributes: ["id", "nome", "descricao"],
+            through: {
+              attributes: [],
+            },
+          },
+        ],
+      });
+
+      return usuarios;
     } catch (error) {
       throw new Error("Erro ao buscar os usuários");
     }
@@ -40,7 +61,35 @@ class UsuarioService {
 
   async buscarUsuarioById(id) {
     try {
-      return await database.usuarios.findByPk(id);
+      const usuario = await database.usuarios.findOne({
+        include: [
+          {
+            model: database.roles,
+            as: "usuario_roles",
+            attributes: ["id", "nome", "descricao"],
+            through: {
+              attributes: [],
+            },
+          },
+          {
+            model: database.permissoes,
+            as: "usuario_permissoes",
+            attributes: ["id", "nome", "descricao"],
+            through: {
+              attributes: [],
+            },
+          },
+        ],
+        where: {
+          id: id,
+        },
+      });
+
+      if (!usuario) {
+        throw new Error("Usuario informado não cadastrado!");
+      }
+
+      return usuario;
     } catch (error) {
       throw new Error("usuário não encontrado");
     }
