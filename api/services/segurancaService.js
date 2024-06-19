@@ -67,10 +67,10 @@ class SegurancaService {
         {
           model: database.permissoes,
           as: "roles_das_permissoes",
-          attributes: ["id", "nome", "descricao"],
-          through: {
-            attributes: [],
-          },
+          // attributes: ["id", "nome", "descricao"],
+          // through: {
+          //   attributes: [],
+          // },
         },
       ],
       where: {
@@ -110,6 +110,29 @@ class SegurancaService {
     });
 
     return newRole;
+  }
+
+  async buscarPermissoesRole(roleId) {
+    const role = await database.roles.findOne({
+      include: [
+        {
+          model: database.permissoes,
+          as: "roles_das_permissoes",
+          attributes: [],
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+      where: {
+        id: roleId,
+      },
+    });
+
+    if (!role) {
+      throw new Error("Role não cadastrada!");
+    }
+    return role;
   }
 }
 
