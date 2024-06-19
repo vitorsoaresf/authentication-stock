@@ -3,6 +3,6 @@ const SegurancaoController = require("../controllers/segurancaController");
 
 const router = new Router();
 
-router.post("/segurancao/acl", SegurancaoController.cadastrarAcl);
+router.post("/seguranca/acl", SegurancaoController.cadastrarAcl);
 
 module.exports = router;
