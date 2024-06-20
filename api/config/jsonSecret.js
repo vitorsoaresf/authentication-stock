@@ -1,1 +1,3 @@
-module.exports = { secret: "db987967a4fdf88077cf81d9e7b73b71" };
+require("dotenv").config();
+
+module.exports = { secret: process.env.SECRET };
